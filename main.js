@@ -64,7 +64,7 @@ function renderizaProdutos() {
     return html;
 }
 
-function renderizaCarrinho() {
+function renderizaItemCarrinho() {
     return `
         <div class="card carrinho__item">
                                 <div class="card-body">
@@ -75,6 +75,10 @@ function renderizaCarrinho() {
                                 </div>
                             </div>
     `
+}
+
+function renderizaCarrinho() {
+    return renderizaItemCarrinho();
 }
 
 
