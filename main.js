@@ -28,14 +28,16 @@ const carrinhoItens = {
         nome: 'Curso de culinária',
         preco: 500,
         descricao: 'Melhor curso de culinária',
-        image: 'http://lorempixel.com.br/500/300'
+        image: 'http://lorempixel.com.br/500/300',
+        quantidade: 1
     },
     'abc124': {
         id: 'abc124',
         nome: 'Curso de Inglês',
         preco: 700,
         descricao: 'Melhor curso de Inglês',
-        image: 'http://lorempixel.com.br/500/300'
+        image: 'http://lorempixel.com.br/500/300',
+        quantidade: 2
     }
 };
 
@@ -64,13 +66,13 @@ function renderizaProdutos() {
     return html;
 }
 
-function renderizaItemCarrinho() {
+function renderizaItemCarrinho(produtoCarrinho) {
     return `
         <div class="card carrinho__item">
                                 <div class="card-body">
-                                    <h5 class="card-title">Componentes</h5>
-                                    <p class="card-text">Preço unidade: R$300,00 | Quantidade: 2</p>
-                                    <p class="card-text">Valor: R$600</p>
+                                    <h5 class="card-title">${produtoCarrinho.nome}</h5>
+                                    <p class="card-text">Preço unidade: ${produtoCarrinho.preco} | Quantidade: ${produtoCarrinho.quantidade}</p>
+                                    <p class="card-text">Valor: R$${produtoCarrinho.quantidade * produtoCarrinho.quantidade}</p>
                                     <button href="#" data-value="300" class="btn btn-danger btn-sm">Remover</button>
                                 </div>
                             </div>
@@ -78,7 +80,12 @@ function renderizaItemCarrinho() {
 }
 
 function renderizaCarrinho() {
-    return renderizaItemCarrinho();
+    let html = '';
+    for (const produtoId in carrinhoItens) {
+        html = html + renderizaItemCarrinho(carrinhoItens[produtoId]);
+    }
+
+    return html;
 }
 
 
