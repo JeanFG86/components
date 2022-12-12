@@ -74,7 +74,7 @@ function renderizaItemCarrinho(produtoCarrinho) {
                                 <div class="card-body">
                                     <h5 class="card-title">${produtoCarrinho.nome}</h5>
                                     <p class="card-text">Preço unidade: ${produtoCarrinho.preco} | Quantidade: ${produtoCarrinho.quantidade}</p>
-                                    <p class="card-text">Valor: R$${produtoCarrinho.quantidade * produtoCarrinho.quantidade}</p>
+                                    <p class="card-text">Valor: R$${produtoCarrinho.preco * produtoCarrinho.quantidade}</p>
                                     <button href="#" data-value="300" class="btn btn-danger btn-sm">Remover</button>
                                 </div>
                             </div>
@@ -90,6 +90,26 @@ function renderizaCarrinho() {
     document.querySelector('.carrinho__itens').innerHTML = html;
 }
 
+function renderCarrinhoTotal() {
+    let total = 0;
+    for (const produtoId in carrinhoItens) {
+        total = total + (carrinhoItens[produtoId].preco * carrinhoItens[produtoId].quantidade);
+    }
+
+    document.querySelector('.carrinho__total').innerHTML = `<h6>Total: <strong>R$${total}</strong></h6>`;
+}
+
+function adicionaItemNoCarrinho(produto) {
+    if (!carrinhoItens[produto.id]) {
+        carrinhoItens[produto.id] = produto;
+        carrinhoItens[produto.id].quantidade = 0;
+    }
+
+    ++carrinhoItens[produto.id].quantidade;
+
+    renderizaCarrinho();
+    renderCarrinhoTotal();
+}
 
 document.body.addEventListener('click', function (event) {
     const elemento = event.target;
@@ -98,12 +118,7 @@ document.body.addEventListener('click', function (event) {
         const index = parseInt(elemento.getAttribute('data-index'));
         const produto = produtos[index];
 
-        if (!carrinhoItens[produto.id]) {
-            carrinhoItens[produto.id] = produto;
-            carrinhoItens[produto.id].quantidade = 1;
-        }
-
-        renderizaCarrinho();
+        adicionaItemNoCarrinho(produto);
     }
 });
 
