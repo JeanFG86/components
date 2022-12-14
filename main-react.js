@@ -1,6 +1,9 @@
 function AppComponente() {
     return (
-        React.createElement('h1', null, 'Olá!!')
+        React.createElement(React.Fragment, null,
+            React.createElement('div', { className: 'col-sm-8' }, null),
+            React.createElement('div', { className: 'col-sm-4' }, null)
+        )
     )
 }
 
