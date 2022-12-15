@@ -31,10 +31,32 @@ function AppComponente() {
                     )
                 )
             ),
+            /*
+            <div class="card carrinho__item">
+                <div class="card-body">
+                    <h5 class="card-title">Componentes</h5>
+                    <p class="card-text">Preço unidade: R$300,00 | Quantidade: 2</p>
+                    <p class="card-text">Valor: R$600</p>
+                    <button href="#" data-value="300" class="btn btn-danger btn-sm">Remover</button>
+                </div>
+            </div>
+            */
             React.createElement('div', { className: 'col-sm-4' },
                 React.createElement('div', { className: 'carrinho' },
-                    React.createElement('div', { className: 'carrinho__itens' }),
-                    React.createElement('div', { className: 'carrinho__total mt-2 p-3' }),
+                    React.createElement('div', { className: 'carrinho__itens' },
+                        React.createElement('div', { className: 'card carrinho__item' },
+                            React.createElement('div', { className: 'card-body' },
+                                React.createElement('h5', { className: 'card-title' }, 'Componentes-React'),
+                                React.createElement('p', { className: 'card-text' }, 'Preço unidade: R$300,00 | Quantidade: 2'),
+                                React.createElement('p', { className: 'card-text' }, 'Valor: R$600'),
+                                React.createElement('button', { className: 'btn btn-danger btn-sm' }, 'Remover')
+                            )
+                        )
+                    ),
+                    React.createElement('div', { className: 'carrinho__total mt-2 p-3' },
+                        React.createElement('h6', null, 'Total: ', React.createElement('strong', null, 'R$600,00')
+                        )
+                    )
                 )
             )
         )
