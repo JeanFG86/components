@@ -52,9 +52,9 @@ function CarrinhoComponent({ itens }) {
     return (
         React.createElement('div', { className: 'carrinho' },
             React.createElement('div', { className: 'carrinho__itens' },
-                Object.keys(itens).map(function (produtoId) {
+                Object.keys(itens).map(function (produtoId, index) {
                     return (
-                        React.createElement('div', { className: 'card carrinho__item' },
+                        React.createElement('div', { className: 'card carrinho__item', key: `item-carrion-${index}` },
                             React.createElement('div', { className: 'card-body' },
                                 React.createElement('h5', { className: 'card-title' }, itens[produtoId].nome),
                                 React.createElement('p', { className: 'card-text' }, `Preço unidade: R$${itens[produtoId].preco} | Quantidade: ${itens[produtoId].quantidade}`),
@@ -107,8 +107,8 @@ function AppComponente() {
         React.createElement(React.Fragment, null,
             React.createElement('div', { className: 'col-sm-8' },
                 React.createElement(ListaProdutoComponent, null,
-                    produtosLista.map(function (produto) {
-                        return React.createElement(ProdutoComponent, { item: produto, onAddCarrinho: addCarrinho })
+                    produtosLista.map(function (produto, index) {
+                        return React.createElement(ProdutoComponent, { item: produto, onAddCarrinho: addCarrinho, key: `produto-${index}` })
                     })
                 )
             ),
