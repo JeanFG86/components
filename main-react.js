@@ -40,12 +40,10 @@ function ProdutoComponent(props) {
     )
 }
 
-function ListaProdutoComponent({ itens, onAddCarrinho }) {
+function ListaProdutoComponent(props) {
     return (
         React.createElement('div', { className: 'row loja' },
-            itens.map(function (produto) {
-                return React.createElement(ProdutoComponent, { item: produto, onAddCarrinho: onAddCarrinho })
-            })
+            props.children
         )
     )
 }
@@ -108,7 +106,11 @@ function AppComponente() {
     return (
         React.createElement(React.Fragment, null,
             React.createElement('div', { className: 'col-sm-8' },
-                React.createElement(ListaProdutoComponent, { itens: produtosLista, onAddCarrinho: addCarrinho })
+                React.createElement(ListaProdutoComponent, null,
+                    produtosLista.map(function (produto) {
+                        return React.createElement(ProdutoComponent, { item: produto, onAddCarrinho: addCarrinho })
+                    })
+                )
             ),
             React.createElement('div', { className: 'col-sm-4' },
                 React.createElement(CarrinhoComponent, { itens: carrinhoItens })
