@@ -22,17 +22,17 @@ const produtosLista = [
     }
 ]
 
-function ProdutoComponent(produto) {
+function ProdutoComponent(props) {
     return (
         React.createElement('div', { className: 'col-sm-4 mb-3' },
             React.createElement('div', { className: 'card loja__item' },
                 React.createElement('div', { className: 'loja__item' },
-                    React.createElement('img', { className: 'card-img-top', src: produto.image }),
+                    React.createElement('img', { className: 'card-img-top', src: props.item.image }),
                     React.createElement('div', { className: 'card-body' },
-                        React.createElement('h5', { className: 'card-title' }, produto.nome),
-                        React.createElement('small', null, `R$${produto.preco}`),
-                        React.createElement('p', { className: 'card-text' }, produto.descricao),
-                        React.createElement('button', { className: 'btn btn-primary btn-add' }, 'Adicionar'),
+                        React.createElement('h5', { className: 'card-title' }, props.item.nome),
+                        React.createElement('small', null, `R$${props.item.preco}`),
+                        React.createElement('p', { className: 'card-text' }, props.item.descricao),
+                        React.createElement('button', { className: 'btn btn-primary btn-add', onClick: props.onAddCarrinho }, 'Adicionar'),
                     ),
                 )
             )
@@ -40,11 +40,11 @@ function ProdutoComponent(produto) {
     )
 }
 
-function ListaProdutoComponent({ itens }) {
+function ListaProdutoComponent({ itens, onAddCarrinho }) {
     return (
         React.createElement('div', { className: 'row loja' },
             itens.map(function (produto) {
-                return React.createElement(ProdutoComponent, produto)
+                return React.createElement(ProdutoComponent, { item: produto, onAddCarrinho: onAddCarrinho })
             })
         )
     )
@@ -101,10 +101,14 @@ function AppComponente() {
         }
     };
 
+    function addCarrinho() {
+        console.log('oi')
+    }
+
     return (
         React.createElement(React.Fragment, null,
             React.createElement('div', { className: 'col-sm-8' },
-                React.createElement(ListaProdutoComponent, { itens: produtosLista })
+                React.createElement(ListaProdutoComponent, { itens: produtosLista, onAddCarrinho: addCarrinho })
             ),
             React.createElement('div', { className: 'col-sm-4' },
                 React.createElement(CarrinhoComponent, { itens: carrinhoItens })
