@@ -48,7 +48,7 @@ function ListaProdutoComponent(props) {
     )
 }
 
-function CarrinhoComponent({ itens }) {
+function CarrinhoComponent({ itens, onRemoveItemCarrinho }) {
     return (
         React.createElement('div', { className: 'carrinho' },
             React.createElement('div', { className: 'carrinho__itens' },
@@ -59,7 +59,7 @@ function CarrinhoComponent({ itens }) {
                                 React.createElement('h5', { className: 'card-title' }, itens[produtoId].nome),
                                 React.createElement('p', { className: 'card-text' }, `Preço unidade: R$${itens[produtoId].preco} | Quantidade: ${itens[produtoId].quantidade}`),
                                 React.createElement('p', { className: 'card-text' }, `Valor: R$${itens[produtoId].preco * itens[produtoId].quantidade}`),
-                                React.createElement('button', { className: 'btn btn-danger btn-sm' }, 'Remover')
+                                React.createElement('button', { onClick: onRemoveItemCarrinho.bind(null, produtoId), className: 'btn btn-danger btn-sm' }, 'Remover')
                             )
                         )
                     )
@@ -104,6 +104,22 @@ function AppComponente() {
         }
     }
 
+    function removeItemCarrinho(produtoId) {
+        if (carrinhoItens[produtoId].quantidade <= 1) {
+            delete carrinhoItens[produtoId]
+            addItemCarrinho({ ...carrinhoItens })
+        }
+        else {
+            addItemCarrinho({
+                ...carrinhoItens,
+                [produtoId]: {
+                    ...carrinhoItens[produtoId],
+                    quantidade: --carrinhoItens[produtoId].quantidade
+                }
+            })
+        }
+    }
+
     return (
         React.createElement(React.Fragment, null,
             React.createElement('div', { className: 'col-sm-8' },
@@ -114,7 +130,7 @@ function AppComponente() {
                 )
             ),
             React.createElement('div', { className: 'col-sm-4' },
-                React.createElement(CarrinhoComponent, { itens: carrinhoItens })
+                React.createElement(CarrinhoComponent, { itens: carrinhoItens, onRemoveItemCarrinho: removeItemCarrinho })
             )
         )
     )
