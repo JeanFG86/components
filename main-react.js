@@ -80,27 +80,28 @@ function valorTotal(carrinhoItens) {
 }
 
 function AppComponente() {
-    const carrinhoItens = {
-        'abc123': {
-            id: 'abc123',
-            nome: 'Curso de culinária',
-            preco: 500,
-            descricao: 'Melhor curso de culinária',
-            image: 'http://lorempixel.com.br/500/300',
-            quantidade: 1
-        },
-        'abc124': {
-            id: 'abc124',
-            nome: 'Curso de Inglês',
-            preco: 700,
-            descricao: 'Melhor curso de Inglês',
-            image: 'http://lorempixel.com.br/500/300',
-            quantidade: 2
-        }
-    };
+    const [carrinhoItens, addItemCarrinho] = React.useState({});
 
-    function addCarrinho(props) {
-        console.log(props)
+    function addCarrinho(produto) {
+        console.log(produto)
+        if (!carrinhoItens[produto.id]) {
+            addItemCarrinho({
+                ...carrinhoItens,
+                [produto.id]: {
+                    ...produto,
+                    quantidade: 1
+                }
+            })
+        }
+        else {
+            addItemCarrinho({
+                ...carrinhoItens,
+                [produto.id]: {
+                    ...produto,
+                    quantidade: ++carrinhoItens[produto.id].quantidade
+                }
+            })
+        }
     }
 
     return (
